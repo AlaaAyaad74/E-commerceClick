@@ -16,7 +16,7 @@ function Login() {
     if (localStorage.getItem("token")) {
       navigate("/");
     }
-  }, []);
+  }, [navigate]);
   const {
     register,
     handleSubmit,
