@@ -8,7 +8,7 @@ function Cart() {
   const dispatch = useDispatch<AppDispatch>();
   useEffect(() => {
     dispatch(fetchUserData());
-  }, []);
+  }, [dispatch]);
   return (
     <h1>
       {cartData.map((item) => (
