@@ -2,6 +2,7 @@ import { useDispatch } from "react-redux";
 import { addProduct } from "../../slices/cart";
 import { productModel } from "../interfaceModels/productModel";
 import { Link, useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 
 export default function ProductsList({
   products,
@@ -52,6 +53,7 @@ export default function ProductsList({
                 onClick={() => {
                   if (localStorage.getItem("token")) {
                     dispatch(addProduct(product));
+                    toast.success("Product Added Successfuly!");
                   } else {
                     navigate("/login");
                   }

@@ -3,6 +3,7 @@ import fetchData from "../api/FetchData";
 import { useEffect } from "react";
 import { AppDispatch, RootState } from "../store";
 
+import "react-toastify/dist/ReactToastify.css";
 import ProductsList from "../components/ui/ProductsLists";
 import { fetchUserData } from "../api/FetchUserData";
 

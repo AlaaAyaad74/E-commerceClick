@@ -2,6 +2,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { RootState } from "../../store";
 import { addProduct } from "../../slices/cart";
+import { toast } from "react-toastify";
 
 export default function ProductOverview() {
   const data = useSelector((state: RootState) => state.productPage.data);
@@ -75,20 +76,20 @@ export default function ProductOverview() {
                 {data.price} $
               </p>
 
-              <form className="mt-10">
-                <button
-                  onClick={() => {
-                    if (localStorage.getItem("token")) {
-                      dispatch(addProduct(data));
-                    } else {
-                      navigate("/login");
-                    }
-                  }}
-                  className="mt-10 flex w-full items-center justify-center rounded-md border border-transparent bg-indigo-600 px-8 py-3 text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
-                >
-                  Add to bag
-                </button>
-              </form>
+              <button
+                onClick={() => {
+                  if (localStorage.getItem("token")) {
+                    dispatch(addProduct(data));
+                    console.log(data)
+                    toast.success("Product Added!");
+                  } else {
+                    navigate("/login");
+                  }
+                }}
+                className="mt-10 flex w-full items-center justify-center rounded-md border border-transparent bg-indigo-600 px-8 py-3 text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+              >
+                Add to bag
+              </button>
             </div>
 
             <div className="py-10 lg:col-span-2 lg:col-start-1 lg:border-r lg:border-gray-200 lg:pb-16 lg:pr-8 lg:pt-6">

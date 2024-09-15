@@ -1,4 +1,4 @@
-import  { useEffect } from "react";
+import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { productModel } from "../../components/interfaceModels/productModel";
@@ -6,6 +6,7 @@ import { AppDispatch, RootState } from "../../store";
 import { addProduct } from "../../slices/cart";
 import fetchData from "../../api/FetchData";
 import { fetchUserData } from "../../api/FetchUserData";
+import { toast } from "react-toastify";
 
 function CategoryPage() {
   const { categoryName } = useParams();
@@ -61,6 +62,7 @@ function CategoryPage() {
                 onClick={() => {
                   if (localStorage.getItem("token")) {
                     dispatch(addProduct(product));
+                    toast.success("Product Added Successfully!");
                   } else {
                     navigate("/login");
                   }

@@ -17,12 +17,14 @@ import RequireAuth from "./Auth/RequireAuth.tsx";
 import Footer from "../components/ui/Footer.tsx";
 import CategoryPage from "./pages/CategoryPage.tsx";
 import Cart from "./pages/Cart.tsx";
+import { ToastContainer } from "react-toastify";
 
 const Layout = () => {
   const location = useLocation(); // useLocation can now be used here inside Router context
   console.log(location);
   return (
     <>
+      <ToastContainer theme="dark" autoClose={1500} />
       {location.pathname === "/login" || location.pathname === "/register" ? (
         ""
       ) : (
