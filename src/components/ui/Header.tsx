@@ -86,8 +86,8 @@ export default function Example() {
                                 className="object-cover object-center"
                               />
                             </div>
-                            <a
-                              href={`/products/${item.category.name}`}
+                            <Link
+                              to={`/products/${product.category.name}`}
                               className="mt-6 block font-medium text-gray-900"
                             >
                               <span
@@ -95,7 +95,7 @@ export default function Example() {
                                 className="absolute inset-0 z-10"
                               />
                               {item.category.name}
-                            </a>
+                            </Link>
                             <p aria-hidden="true" className="mt-1">
                               Shop now
                             </p>
@@ -113,12 +113,12 @@ export default function Example() {
             <div className="space-y-6 border-t border-gray-200 px-4 py-6">
               <div className="flow-root">
                 {!user.token ? (
-                  <a
-                    href="/login"
+                  <Link
+                    to="/login"
                     className="text-sm font-medium text-gray-700 hover:text-gray-800"
                   >
                     Sign in
-                  </a>
+                  </Link>
                 ) : (
                   <button
                     onClick={() => {
@@ -132,12 +132,12 @@ export default function Example() {
                 )}
               </div>
               <div className="flow-root">
-                <a
-                  href="/register"
+                <Link
+                  to="/register"
                   className="-m-2 block p-2 font-medium text-gray-900"
                 >
                   {user.token ? "" : "Create account"}
-                </a>
+                </Link>
                 <div>
                   {user.token && (
                     <img
@@ -176,10 +176,10 @@ export default function Example() {
 
               {/* Logo */}
               <div className="ml-4 flex lg:ml-0">
-                <a href="/">
+                <Link to="/">
                   <span className="sr-only">Your Company</span>
                   <img alt="" src="/assets/logo.png" className="h-8 w-auto" />
-                </a>
+                </Link>
               </div>
 
               {/* Flyout menus */}
