@@ -1,11 +1,12 @@
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { RootState } from "../../store";
+import { addProduct } from "../../slices/cart";
 
 export default function ProductOverview() {
   const data = useSelector((state: RootState) => state.productPage.data);
   const navigate = useNavigate();
-  console.log(data);
+  const dispatch = useDispatch();
   if (data.category) {
     return (
       <div className="bg-white">
@@ -78,7 +79,7 @@ export default function ProductOverview() {
                 <button
                   onClick={() => {
                     if (localStorage.getItem("token")) {
-                      navigate("/cart");
+                      dispatch(addProduct(data));
                     } else {
                       navigate("/login");
                     }
