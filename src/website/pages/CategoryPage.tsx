@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { productModel } from "../../components/interfaceModels/productModel";
-import { RootState } from "../../store";
+import { AppDispatch, RootState } from "../../store";
 import { addProduct } from "../../slices/cart";
 import fetchData from "../../api/FetchData";
 import { fetchUserData } from "../../api/FetchUserData";
@@ -10,7 +10,7 @@ import { fetchUserData } from "../../api/FetchUserData";
 function CategoryPage() {
   const { categoryName } = useParams();
   let products = useSelector((state: RootState) => state.products.data);
-  const dispatch = useDispatch();
+  const dispatch = useDispatch<AppDispatch>();
   products = products.filter(
     (product: productModel) => product.category.name === categoryName
   );

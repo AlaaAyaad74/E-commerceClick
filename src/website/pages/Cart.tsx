@@ -1,11 +1,11 @@
 import { useDispatch, useSelector } from "react-redux";
-import { RootState } from "../../store";
+import { AppDispatch, RootState } from "../../store";
 import { useEffect } from "react";
 import { fetchUserData } from "../../api/FetchUserData";
 
 function Cart() {
   const cartData = useSelector((state: RootState) => state.cart);
-  const dispatch = useDispatch();
+  const dispatch = useDispatch<AppDispatch>();
   useEffect(() => {
     dispatch(fetchUserData());
   }, []);

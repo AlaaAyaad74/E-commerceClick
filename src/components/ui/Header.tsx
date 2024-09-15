@@ -4,7 +4,6 @@ import {
   DialogBackdrop,
   DialogPanel,
   Popover,
-  PopoverButton,
   PopoverGroup,
   Tab,
   TabGroup,
@@ -20,7 +19,7 @@ import {
 } from "@heroicons/react/24/outline";
 import { useDispatch, useSelector } from "react-redux";
 import { login } from "../../slices/userSlice";
-import { IUser } from "../interfaceModels/userModel";
+
 import useCategoriesFirstProduct from "../../utils/getCategories";
 import { Link } from "react-router-dom";
 
@@ -29,7 +28,7 @@ export default function Example() {
   const [open, setOpen] = useState(false);
   const dispatch = useDispatch();
 
-  const user = useSelector((state: IUser) => state.user);
+  const user = useSelector((state: RootState) => state.user);
 
   const products = useCategoriesFirstProduct();
   const cartData = useSelector((state: RootState) => state.cart);
@@ -82,13 +81,13 @@ export default function Example() {
                           <div key={index} className="group relative text-sm">
                             <div className="aspect-h-1 aspect-w-1 overflow-hidden rounded-lg bg-gray-100 group-hover:opacity-75">
                               <img
-                                alt={item.imageAlt}
+                                alt="product Image"
                                 src={item.category.image}
                                 className="object-cover object-center"
                               />
                             </div>
                             <a
-                              href={item.href}
+                              href={`/products/${item.category.name}`}
                               className="mt-6 block font-medium text-gray-900"
                             >
                               <span
