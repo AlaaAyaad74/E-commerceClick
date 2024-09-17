@@ -1,13 +1,21 @@
 import { useDispatch, useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
-import { RootState } from "../../store";
-import { addProduct } from "../../slices/cart";
-import { toast } from "react-toastify";
+import { AppDispatch, RootState } from "../../store";
+import useLoadCart from "../../utils/loadandResetCart";
+import { useEffect } from "react";
+import { fetchUserData } from "../../api/FetchUserData";
+import useHandleCart from "../../utils/handleCart";
 
 export default function ProductOverview() {
+  const dispatch = useDispatch<AppDispatch>();
   const data = useSelector((state: RootState) => state.productPage.data);
-  const navigate = useNavigate();
-  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(fetchUserData());
+  }, [dispatch]);
+  const userEmail = useSelector((state: RootState) => state.user.email);
+  const { handleAddCart } = useHandleCart(userEmail);
+
+  useLoadCart(userEmail);
   if (data.category) {
     return (
       <div className="bg-white">
@@ -78,13 +86,7 @@ export default function ProductOverview() {
 
               <button
                 onClick={() => {
-                  if (localStorage.getItem("token")) {
-                    dispatch(addProduct(data));
-                    console.log(data)
-                    toast.success("Product Added!");
-                  } else {
-                    navigate("/login");
-                  }
+                  handleAddCart(data);
                 }}
                 className="mt-10 flex w-full items-center justify-center rounded-md border border-transparent bg-indigo-600 px-8 py-3 text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
               >

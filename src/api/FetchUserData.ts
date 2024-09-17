@@ -26,6 +26,7 @@ export const fetchUserData = createAsyncThunk(
     } catch (err) {
       // Handle Axios errors and other unknown errors
       if (axios.isAxiosError(err)) {
+        localStorage.removeItem("token");
         return thunkAPI.rejectWithValue(
           err.response?.data || "Error fetching user data"
         );

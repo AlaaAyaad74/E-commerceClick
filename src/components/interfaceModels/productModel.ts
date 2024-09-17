@@ -14,6 +14,7 @@ export interface productModel {
   creationAt: string;
   updatedAt: string;
   images: string[];
+  quantity:number
 }
 
 
