@@ -38,7 +38,6 @@ const useHandleCart = (userEmail: string | null) => {
       }
       console.log(cartData);
       localStorage.setItem(`cart_${userEmail}`, JSON.stringify(existingCart));
-      toast.success("Product Added");
     }
   };
 
