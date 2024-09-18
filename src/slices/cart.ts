@@ -46,7 +46,7 @@ const CartSlice = createSlice({
       toast.success("Product DeletedSuccessfully!");
       return state.filter((item) => item.id !== action.payload.id);
     },
-    set: (state, action) => {
+    set: (_, action) => {
       return action.payload;
     },
     reset: () => {
