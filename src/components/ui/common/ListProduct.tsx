@@ -1,11 +1,12 @@
 import { useDispatch, useSelector } from "react-redux";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 import { productModel } from "../../interfaceModels/productModel";
 import { RootState } from "../../../store";
 import Loading from "../Loading";
 import { addProduct, set } from "../../../slices/cart";
 import { useEffect } from "react";
+import { toast } from "react-toastify";
 
 function ListProduct({ products }: { products: productModel[] }) {
   const userEmail = useSelector((state: RootState) => state.user.email);
@@ -25,6 +26,7 @@ function ListProduct({ products }: { products: productModel[] }) {
       }
     }
   }, [userEmail, dispatch]);
+  const navigate = useNavigate();
   return (
     <>
       {isLoading && <Loading />}
@@ -62,7 +64,14 @@ function ListProduct({ products }: { products: productModel[] }) {
                 </div>
                 <button
                   // onClick={() => handleAddCart(product)}
-                  onClick={() => dispatch(addProduct(product))}
+                  onClick={() => {
+                    if (userEmail) {
+                      dispatch(addProduct(product));
+                    } else {
+                      toast.error("You Must Login First");
+                      navigate("/login");
+                    }
+                  }}
                   className="mt-1 flex w-full items-center justify-center rounded-md border border-transparent bg-indigo-600 px-8 py-3 text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
                 >
                   Add to bag
