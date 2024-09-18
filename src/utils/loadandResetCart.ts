@@ -4,13 +4,12 @@ import { addProduct, reset } from "../slices/cart";
 import { RootState } from "../store";
 import { productModel } from "../components/interfaceModels/productModel";
 
-const useLoadCart = (userEmail: string | null) => {
+const useLoadCart = () => {
   const dispatch = useDispatch();
   const cartData = useSelector((state: RootState) => state.cart);
+  const userEmail = useSelector((state: RootState) => state.user.email);
 
   useEffect(() => {
-    // Only load cart if user is logged in and cartData is empty
-    console.log("hggasdafua");
     if (userEmail && cartData.length === 0) {
       const existingCart = JSON.parse(
         localStorage.getItem(`cart_${userEmail}`) || "[]"
@@ -22,7 +21,7 @@ const useLoadCart = (userEmail: string | null) => {
         });
       }
     }
-  }, []);
+  }, [userEmail]);
   // reset when you logout
   useEffect(() => {
     if (!userEmail) {

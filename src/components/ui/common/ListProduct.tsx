@@ -1,19 +1,30 @@
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
-import useHandleCart from "../../../utils/handleCart";
 
 import { productModel } from "../../interfaceModels/productModel";
 import { RootState } from "../../../store";
 import Loading from "../Loading";
+import { addProduct, set } from "../../../slices/cart";
+import { useEffect } from "react";
 
 function ListProduct({ products }: { products: productModel[] }) {
-  // Add product to cart and handle login redirect
-  // Get user email from Redux state
-
   const userEmail = useSelector((state: RootState) => state.user.email);
   const isLoading = useSelector((state: RootState) => state.products.loading);
-  const { handleAddCart } = useHandleCart(userEmail);
 
+  const dispatch = useDispatch();
+  const cartData = useSelector((state: RootState) => state.cart);
+  useEffect(() => {
+    if (cartData?.length > 0)
+      localStorage.setItem(`cart_${userEmail}`, JSON.stringify(cartData));
+  }, [cartData, userEmail]);
+  useEffect(() => {
+    if (userEmail?.length > 0) {
+      const storedCart = localStorage.getItem(`cart_${userEmail}`);
+      if (storedCart) {
+        dispatch(set(JSON.parse(storedCart)));
+      }
+    }
+  }, [userEmail, dispatch]);
   return (
     <>
       {isLoading && <Loading />}
@@ -50,7 +61,8 @@ function ListProduct({ products }: { products: productModel[] }) {
                   </p>
                 </div>
                 <button
-                  onClick={() => handleAddCart(product)}
+                  // onClick={() => handleAddCart(product)}
+                  onClick={() => dispatch(addProduct(product))}
                   className="mt-1 flex w-full items-center justify-center rounded-md border border-transparent bg-indigo-600 px-8 py-3 text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
                 >
                   Add to bag

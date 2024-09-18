@@ -9,7 +9,6 @@ import Loading from "../components/ui/Loading";
 
 function App() {
   const dispatch = useDispatch<AppDispatch>();
-
   const { loading, data, error } = useSelector(
     (state: RootState) => state.products
   );
@@ -24,7 +23,7 @@ function App() {
       {loading && <Loading />}
       {data && !loading && (
         <main>
-          <ProductsList products={data} />
+          <ProductsList products={data.slice(2,14)} />
         </main>
       )}
       {error && <p>{error}</p>}

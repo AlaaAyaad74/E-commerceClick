@@ -15,7 +15,7 @@ export default function ProductOverview() {
   const userEmail = useSelector((state: RootState) => state.user.email);
   const { handleAddCart } = useHandleCart(userEmail);
 
-  useLoadCart(userEmail);
+  useLoadCart();
   if (data.category) {
     return (
       <div className="bg-white">

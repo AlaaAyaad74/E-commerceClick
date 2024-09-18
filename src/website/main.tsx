@@ -7,8 +7,8 @@ import {
   Routes,
   useLocation,
 } from "react-router-dom";
-import { Provider, useSelector } from "react-redux";
-import { RootState, store } from "../store.ts";
+import { Provider } from "react-redux";
+import { store } from "../store.ts";
 import App from "./App.tsx";
 import Products from "./pages/Product.tsx";
 import Login from "./pages/Login.tsx";
@@ -22,11 +22,9 @@ import useLoadCart from "../utils/loadandResetCart.ts";
 
 const Layout = () => {
   const location = useLocation(); // useLocation can now be used here inside
-  const userEmail = useSelector((state: RootState) => state.user.email);
 
+  useLoadCart();
 
-  useLoadCart(userEmail);
-  console.log(userEmail)
   return (
     <>
       <ToastContainer theme="dark" autoClose={1500} />
