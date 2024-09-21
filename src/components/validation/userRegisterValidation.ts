@@ -19,6 +19,6 @@ const userRegisterValidation = Yup.object().shape({
     .oneOf([Yup.ref("password")], "Password Must match"),
   avatar: Yup.string()
     .required("Avatar URL is required")
-    .url("Invalid URL format"),
+    // .url("Invalid URL format"),
 });
 export default userRegisterValidation;

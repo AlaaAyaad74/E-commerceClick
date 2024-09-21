@@ -1,5 +1,5 @@
 import "./index.css";
-import Header from "../components/ui/Header.tsx";
+import Header from "../components/ui/common/Header.tsx";
 import ReactDOM from "react-dom";
 import {
   BrowserRouter as Router,
@@ -14,16 +14,17 @@ import Products from "./pages/Product.tsx";
 import Login from "./pages/Login.tsx";
 import Register from "./pages/Register.tsx";
 import RequireAuth from "./Auth/RequireAuth.tsx";
-import Footer from "../components/ui/Footer.tsx";
+import Footer from "../components/ui/common/Footer.tsx";
 import CategoryPage from "./pages/CategoryPage.tsx";
 import Cart from "./pages/Cart.tsx";
 import { ToastContainer } from "react-toastify";
-import useLoadCart from "../utils/loadandResetCart.ts";
+import NotFound from "../components/ui/common/NotFound.tsx";
+// import useLoadCart from "../utils/loadandResetCart.ts";
 
 const Layout = () => {
   const location = useLocation(); // useLocation can now be used here inside
 
-  useLoadCart();
+  // useLoadCart();
 
   return (
     <>
@@ -47,6 +48,7 @@ const Layout = () => {
           }
         />
         <Route path="/" element={<App />} />
+        <Route path="*" element={<NotFound />} />
       </Routes>
       {location.pathname === "/login" || location.pathname === "/register" ? (
         ""

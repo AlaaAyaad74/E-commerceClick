@@ -18,7 +18,7 @@ function CategoryPage() {
   }, [dispatch]);
 
   // Get products and filter by category
-  let products = useSelector((state: RootState) => state.products.data);
+  let products = useSelector((state: RootState) => state.products.filterdData);
 
   products = products.filter(
     (product: productModel) => product.category.name === categoryName

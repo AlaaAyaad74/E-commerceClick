@@ -6,10 +6,11 @@ import "react-toastify/dist/ReactToastify.css";
 import ProductsList from "../components/ui/ProductsLists";
 import { fetchUserData } from "../api/FetchUserData";
 import Loading from "../components/ui/Loading";
+import Slider from "../components/ui/Slider";
 
 function App() {
   const dispatch = useDispatch<AppDispatch>();
-  const { loading, data, error } = useSelector(
+  const { loading, filterdData, error } = useSelector(
     (state: RootState) => state.products
   );
 
@@ -21,9 +22,9 @@ function App() {
   return (
     <>
       {loading && <Loading />}
-      {data && !loading && (
+      {filterdData && !loading && (
         <main>
-          <ProductsList products={data.slice(2,14)} />
+          <Slider /> <ProductsList products={filterdData.slice(2, 14)} />
         </main>
       )}
       {error && <p>{error}</p>}

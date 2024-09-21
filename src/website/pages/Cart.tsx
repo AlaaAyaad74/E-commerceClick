@@ -11,6 +11,7 @@ import {
   set,
 } from "../../slices/cart";
 import { toast } from "react-toastify";
+import { GrDeliver } from "react-icons/gr";
 
 function Cart() {
   const cartData = useSelector(
@@ -42,7 +43,7 @@ function Cart() {
     }
   }, [cartData, userEmail]);
 
-  const total = cartData
+  let total = cartData
     .map((item) => item.quantity * item.price)
     .reduce((acc, curr) => acc + curr, 0);
 
@@ -51,14 +52,14 @@ function Cart() {
       {/* {loading && <Loading />} */}
 
       {cartData.length > 0 && (
-        <div className="flex flex-col w-11/12 mx-auto mt-4 gap-5 lg:flex-row">
+        <div className="flex flex-col w-11/12 mx-auto  gap-5 lg:flex-row min-h-[50vh] my-4">
           <div className="lg:w-3/4 md:w-4/4 gap-4 flex flex-col">
             {cartData.map((item, index) => (
               <div key={index}>
                 <div className="relative flex flex-col md:flex-row  p-3 justify-between align-center bg-slate-200 rouded-md gap-3 rounded-md">
                   <div className="flex gap-4 w-3/4">
                     <img
-                      src={item.category?.image}
+                      src={item.images[0]}
                       alt="productImage"
                       className="w-[100px] rounded-md"
                     />
@@ -101,13 +102,28 @@ function Cart() {
             ))}
           </div>
           <div className="lg:w-1/4 ">
-            <h1>Order Summary</h1>
+            <h1 className="mb-3 font-bold border-b-2 pb-1">Order Summary</h1>
             {cartData.map((item) => (
-              <p key={item.id}>
-                {item.title}:<span>{item.quantity * item.price}</span>
+              <p key={item.id} className="mb-1 text-sm">
+                {item.title}:
+                <span className="ml-2 text-slate-400 font-bold">
+                  {item.quantity * item.price} $
+                </span>
               </p>
             ))}
-            <p>SubTotal:{total} </p>
+            <p
+              className={`flex items-center text-green-500 font-bold ${
+                total > 100 ? "line-through	text-red-500 " : (total += 10)
+              }`}
+            >
+              <span className="mr-1">
+                <GrDeliver />
+              </span>
+              Delivery:<span className="ml-2">10 $</span>
+            </p>
+            <p className="text-lg my-5 border-t-2 font-bold text-teal-400">
+              SubTotal:<span className="text-teal-400 ml-2">{total} $</span>
+            </p>
             <button
               className="mt-1 flex w-full items-center justify-center rounded-md border border-transparent bg-indigo-600 px-8 py-3 text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
               onClick={() => {
@@ -121,7 +137,7 @@ function Cart() {
         </div>
       )}
       {cartData.length === 0 && (
-        <h1 className="text-center text-lg py-5 font-bold">
+        <h1 className="text-center text-lg my-5 py-5 font-bold min-h-[50vh]">
           YOU CART IS EMPTY!
         </h1>
       )}

@@ -1,3 +1,17 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+/* @import "bootstrap/dist/css/bootstrap.min.css"; */
+input {
+  outline: none;
+  border: none;
+  background-color: transparent;
+  padding: 0.5em;
+}
+input:focus {
+  outline: none;
+  border: none;
+}
+label {
+  color: white;
+}

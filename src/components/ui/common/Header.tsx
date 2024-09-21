@@ -18,12 +18,14 @@ import {
   XMarkIcon,
 } from "@heroicons/react/24/outline";
 import { useDispatch, useSelector } from "react-redux";
-import { login } from "../../slices/userSlice";
+import { login } from "../../../slices/userSlice";
 
-import useCategoriesFirstProduct from "../../utils/getCategories";
+import useCategoriesFirstProduct from "../../../utils/getCategories";
 import { Link } from "react-router-dom";
 
-import { RootState } from "../../store";
+import { RootState } from "../../../store";
+import Search from "./Search";
+import { reset } from "../../../slices/cart";
 export default function Example() {
   const [open, setOpen] = useState(false);
   const dispatch = useDispatch();
@@ -32,6 +34,8 @@ export default function Example() {
 
   const products = useCategoriesFirstProduct();
   const cartData = useSelector((state: RootState) => state.cart);
+
+  const [showInput, setShowInput] = useState(false);
   return (
     <div className="bg-white">
       {/* Mobile menu */}
@@ -124,6 +128,7 @@ export default function Example() {
                     onClick={() => {
                       localStorage.removeItem("token");
                       dispatch(login({ data: {}, token: "" }));
+                      dispatch(reset());
                     }}
                     className="text-sm font-medium text-gray-700 hover:text-gray-800"
                   >
@@ -214,6 +219,7 @@ export default function Example() {
                       onClick={() => {
                         localStorage.removeItem("token");
                         dispatch(login({ data: {}, token: "" }));
+                        dispatch(reset());
                       }}
                       className="text-sm font-medium text-gray-700 hover:text-gray-800"
                     >
@@ -240,15 +246,20 @@ export default function Example() {
 
                 {/* Search */}
                 <div className="flex lg:ml-6">
-                  <a href="#" className="p-2 text-gray-400 hover:text-gray-500">
+                  <button
+                    onClick={() => {
+                      setShowInput(!showInput);
+                    }}
+                    className="p-2 text-gray-400 hover:text-gray-500"
+                  >
                     <span className="sr-only">Search</span>
                     <MagnifyingGlassIcon
                       aria-hidden="true"
                       className="h-6 w-6"
                     />
-                  </a>
+                  </button>
                 </div>
-
+                {showInput && <Search />}
                 {/* Cart */}
                 <div className="ml-4 flow-root lg:ml-6">
                   <Link to="/cart" className="group -m-2 flex items-center p-2">
