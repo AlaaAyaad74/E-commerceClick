@@ -82,7 +82,13 @@ export default function Example() {
                     <div className="grid grid-cols-2 gap-x-4">
                       {products.map((item, index) =>
                         item.category.name === product.category.name ? (
-                          <div key={index} className="group relative text-sm">
+                          <div
+                            key={index}
+                            onClick={() => {
+                              setOpen(!open);
+                            }}
+                            className="group relative text-sm"
+                          >
                             <div className="aspect-h-1 aspect-w-1 overflow-hidden rounded-lg bg-gray-100 group-hover:opacity-75">
                               <img
                                 alt="product Image"
