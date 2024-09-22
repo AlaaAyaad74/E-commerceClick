@@ -205,7 +205,7 @@ export default function Example() {
                 </div>
               </PopoverGroup>
 
-              <div className="ml-auto flex items-center">
+              <div className="ml-auto flex items-center relative">
                 <div className="hidden lg:flex lg:flex-1 lg:items-center lg:justify-end lg:space-x-6">
                   {!user.token ? (
                     <a

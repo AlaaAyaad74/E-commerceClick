@@ -4,6 +4,8 @@ import useLoadCart from "../../utils/loadandResetCart";
 import { useEffect } from "react";
 import { fetchUserData } from "../../api/FetchUserData";
 import useHandleCart from "../../utils/handleCart";
+import AOS from "aos"; // Import AOS
+import "aos/dist/aos.css"; // Import AOS styles
 
 export default function ProductOverview() {
   const dispatch = useDispatch<AppDispatch>();
@@ -14,11 +16,18 @@ export default function ProductOverview() {
   }, [dispatch]);
   const userEmail = useSelector((state: RootState) => state.user.email);
   const { handleAddCart } = useHandleCart(userEmail);
+  useEffect(() => {
+    AOS.init({
+      duration: 1000, // Duration of animations
+      once: true, // Whether animation should happen only once - while scrolling down
+    });
+    AOS.refresh(); // Refresh AOS to ensure animations are working
+  }, []);
 
   useLoadCart();
   if (data.category) {
     return (
-      <div className="bg-white">
+      <div className="bg-white overflow-x-hidden">
         <div className="pt-6">
           <nav aria-label="Breadcrumb">
             <ol
@@ -37,7 +46,10 @@ export default function ProductOverview() {
 
           {/* Image gallery */}
           <div className="mx-auto mt-6 max-w-2xl sm:px-6 lg:grid lg:max-w-7xl lg:grid-cols-3 lg:gap-x-8 lg:px-8">
-            <div className="aspect-h-4 aspect-w-3 hidden overflow-hidden rounded-lg lg:block">
+            <div
+              className="aspect-h-4 aspect-w-3 hidden overflow-hidden rounded-lg lg:block"
+              data-aos="fade-right"
+            >
               <img
                 alt={data.images[0]}
                 src={data.images[0]}
@@ -45,14 +57,20 @@ export default function ProductOverview() {
               />
             </div>
             <div className="hidden lg:grid lg:grid-cols-1 lg:gap-y-8">
-              <div className="aspect-h-2 aspect-w-3 overflow-hidden rounded-lg">
+              <div
+                className="aspect-h-2 aspect-w-3 overflow-hidden rounded-lg"
+                data-aos="fade-down"
+              >
                 <img
                   alt={data.images[0]}
                   src={data.images[0]}
                   className="h-full w-full object-cover object-center"
                 />
               </div>
-              <div className="aspect-h-2 aspect-w-3 overflow-hidden rounded-lg">
+              <div
+                className="aspect-h-2 aspect-w-3 overflow-hidden rounded-lg"
+                data-aos="fade-up"
+              >
                 <img
                   alt={data.images[1]}
                   src={data.images[1]}
@@ -60,7 +78,10 @@ export default function ProductOverview() {
                 />
               </div>
             </div>
-            <div className="aspect-h-5 aspect-w-4 lg:aspect-h-4 lg:aspect-w-3 sm:overflow-hidden sm:rounded-lg">
+            <div
+              className="aspect-h-5 aspect-w-4 lg:aspect-h-4 lg:aspect-w-3 sm:overflow-hidden sm:rounded-lg"
+              data-aos="fade-left"
+            >
               <img
                 alt={data.images[2]}
                 src={data.images[2]}

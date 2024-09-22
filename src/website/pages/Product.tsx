@@ -7,8 +7,9 @@ import { AppDispatch, RootState } from "../../store";
 import { useParams } from "react-router-dom";
 import ProductOverview from "../../components/ui/ProductOverview";
 import fetchSingleProduct from "../../api/FetchSingleProduct";
-import Loading from "../../components/ui/Loading";
-// import { productModel } from "../../components/interfaceModels/productModel";
+
+import ProductSkeleton from "../../components/ui/skeleton/ProductSkeleton";
+
 
 function Products() {
   const { id } = useParams();
@@ -26,11 +27,7 @@ function Products() {
 
   return (
     <>
-      {loading && (
-        <p>
-          <Loading />
-        </p>
-      )}
+      {loading && <ProductSkeleton />}
       {data && <ProductOverview />}
       {error && <p>{error}</p>}
     </>

@@ -3,11 +3,12 @@ import { Link, useNavigate } from "react-router-dom";
 
 import { productModel } from "../../interfaceModels/productModel";
 import { RootState } from "../../../store";
-import Loading from "../Loading";
+// import Loading from "../Loading";
 import { addProduct, set } from "../../../slices/cart";
 import { useEffect } from "react";
 import { toast } from "react-toastify";
 import { IoIosWarning } from "react-icons/io";
+import SkeletonCard from "../skeleton/Card";
 
 function ListProduct({ products }: { products: productModel[] }) {
   const userEmail = useSelector((state: RootState) => state.user.email);
@@ -30,12 +31,24 @@ function ListProduct({ products }: { products: productModel[] }) {
   const navigate = useNavigate();
   return (
     <div className="relative">
-      {isLoading && <Loading />}
+      {isLoading && (
+        <div className="bg-white ">
+          <div className=" grid grid-cols-2 gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-4 xl:gap-x-8">
+            {Array.from({ length: 4 }).map((_, index) => (
+              <SkeletonCard key={index} />
+            ))}
+          </div>
+        </div>
+      )}
       {products.length > 0 && !isLoading && (
         <div className="bg-white ">
           <div className=" grid grid-cols-2 gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-4 xl:gap-x-8">
             {products.map((product: productModel) => (
-              <div key={product.id} className="group relative">
+              <div
+                data-aos="zoom-in"
+                key={product.id}
+                className="group relative"
+              >
                 <div className="aspect-h-1 aspect-w-1 w-full overflow-hidden rounded-md bg-gray-200 lg:aspect-none group-hover:opacity-75 lg:h-80">
                   <img
                     src={product.images[0]}
@@ -82,19 +95,17 @@ function ListProduct({ products }: { products: productModel[] }) {
           </div>
         </div>
       )}
-      {products.length === 0 && (
-        <div className="flex justify-center items-center flex-col text-center my-5 text-red-500 font-bold text-xl absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 my-4">
+      {products.length === 0 && !isLoading && (
+        <div className="flex justify-center items-center flex-col text-center my-5 text-red-500 font-bold text-xl my-4">
           <IoIosWarning style={{ fontSize: "5rem" }} />
           <h1>Products Not Found!</h1>
         </div>
       )}
-      {!isLoading && products.length === 0 && (
+      {/* {!isLoading && products.length === 0 && (
         <div className="text-center py-16">
-          {/* <h2 className="text-2xl font-bold text-gray-900">
-            No products found in {categoryName}
-          </h2> */}
+         
         </div>
-      )}
+      )} */}
     </div>
   );
 }

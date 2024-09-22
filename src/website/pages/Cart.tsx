@@ -1,6 +1,6 @@
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "../../store";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { fetchUserData } from "../../api/FetchUserData";
 import { productModel } from "../../components/interfaceModels/productModel";
 import {
@@ -12,6 +12,7 @@ import {
 } from "../../slices/cart";
 import { toast } from "react-toastify";
 import { GrDeliver } from "react-icons/gr";
+import CartSkeleton from "../../components/ui/skeleton/CartSkeleton";
 
 function Cart() {
   const cartData = useSelector(
@@ -19,6 +20,11 @@ function Cart() {
   );
   const userEmail = useSelector((state: RootState) => state.user.email);
   const dispatch = useDispatch<AppDispatch>();
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    dispatch(fetchUserData()).finally(() => setIsLoading(false));
+  }, [dispatch]);
 
   useEffect(() => {
     dispatch(fetchUserData());
@@ -49,13 +55,13 @@ function Cart() {
 
   return (
     <>
-      {/* {loading && <Loading />} */}
+      {isLoading && <CartSkeleton />}
 
       {cartData.length > 0 && (
         <div className="flex flex-col w-11/12 mx-auto  gap-5 lg:flex-row min-h-[50vh] my-4">
           <div className="lg:w-3/4 md:w-4/4 gap-4 flex flex-col">
             {cartData.map((item, index) => (
-              <div key={index}>
+              <div key={index} className="animate-[wiggle_1s_ease-in-out]">
                 <div className="relative flex flex-col md:flex-row  p-3 justify-between align-center bg-slate-200 rouded-md gap-3 rounded-md">
                   <div className="flex gap-4 w-3/4">
                     <img
