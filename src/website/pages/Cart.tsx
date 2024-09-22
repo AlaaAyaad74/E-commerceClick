@@ -98,7 +98,7 @@ function Cart() {
                     </button>
                   </div>
                   <span
-                    className="absolute right-3 top-3 py-1 px-2 bg-red-500 rounded-sm  text-white font-medium  "
+                    className="absolute right-3 top-3 py-1 px-2 bg-red-500 rounded-sm  text-white font-medium cursor-pointer"
                     onClick={() => dispatch(deleteItem(item))}
                   >
                     X
