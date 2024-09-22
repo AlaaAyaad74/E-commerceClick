@@ -1,5 +1,3 @@
-import React from "react";
-
 const SkeletonCard = () => {
   return (
     <div className="group relative animate-pulse w-3/4 m-auto">
