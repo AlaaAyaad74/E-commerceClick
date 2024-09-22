@@ -78,7 +78,7 @@ const Footer: React.FC = () => {
         <div className="flex flex-col justify-between">
           <h2 className="mb-3 text-lg">Contact</h2>
           <a
-            href="https://www.google.com/maps/place/Menoufiya+University"
+            href="/"
             target="_blank"
             rel="noopener noreferrer"
             className="flex items-center mb-2 hover:text-secondary-color hover:text-indigo-500 transition-all transition-duration: 150ms;"

@@ -18,7 +18,6 @@ export default function ProductOverview() {
   const { handleAddCart } = useHandleCart(userEmail);
   useEffect(() => {
     AOS.init({
-      duration: 1000, // Duration of animations
       once: true, // Whether animation should happen only once - while scrolling down
     });
     AOS.refresh(); // Refresh AOS to ensure animations are working

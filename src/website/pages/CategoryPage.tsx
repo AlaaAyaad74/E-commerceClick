@@ -5,9 +5,9 @@ import { productModel } from "../../components/interfaceModels/productModel";
 import { AppDispatch, RootState } from "../../store";
 import fetchData from "../../api/FetchData";
 import { fetchUserData } from "../../api/FetchUserData";
-
 import ListProduct from "../../components/ui/common/ListProduct";
-
+import AOS from "aos"; // Import AOS
+import "aos/dist/aos.css"; // Import AOS styles
 function CategoryPage() {
   const dispatch = useDispatch<AppDispatch>();
   const { categoryName } = useParams();
@@ -16,7 +16,12 @@ function CategoryPage() {
     dispatch(fetchData("https://api.escuelajs.co/api/v1/products"));
     dispatch(fetchUserData());
   }, [dispatch]);
-
+  useEffect(() => {
+    AOS.init({
+      once: true,
+    });
+    AOS.refresh(); // Refresh AOS to ensure animations are working
+  }, []);
   // Get products and filter by category
   let products = useSelector((state: RootState) => state.products.filterdData);
 

@@ -96,16 +96,11 @@ function ListProduct({ products }: { products: productModel[] }) {
         </div>
       )}
       {products.length === 0 && !isLoading && (
-        <div className="flex justify-center items-center flex-col text-center my-5 text-red-500 font-bold text-xl my-4">
+        <div className="flex justify-center items-center flex-col text-center my-5 text-red-500 font-bold text-xl  animate-[wiggle_1s_ease-in-out]">
           <IoIosWarning style={{ fontSize: "5rem" }} />
           <h1>Products Not Found!</h1>
         </div>
       )}
-      {/* {!isLoading && products.length === 0 && (
-        <div className="text-center py-16">
-         
-        </div>
-      )} */}
     </div>
   );
 }
