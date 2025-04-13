@@ -58,7 +58,7 @@ const Layout = () => {
     </>
   );
 };
-
+/**to vercel deployment */
 const Root = () => (
   <Provider store={store}>
     <Router>
